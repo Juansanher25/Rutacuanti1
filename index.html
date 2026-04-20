@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metodología de la Investigación - Ruta Cuantitativa</title>
+    
+    <!-- Tailwind CSS para estilos rápidos y responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuración de Tailwind para paleta de colores académica -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        academynavy: '#0f172a',
+                        academyblue: '#1d4ed8',
+                        academygold: '#eab308',
+                        academygray: '#f8fafc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        serif: ['Merriweather', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- MathJax para el renderizado de ecuaciones matemáticas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        h1, h2, h3, h4 { font-family: 'Merriweather', serif; }
+        
+        /* Efectos visuales para tarjetas */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Gráfico CSS para Diseños */
+        .tree-diagram { display: flex; flex-direction: column; align-items: center; padding: 2rem 0; }
+        .tree-root { background: #1d4ed8; color: white; padding: 1rem 2rem; border-radius: 0.5rem; font-weight: bold; position: relative; z-index: 10;}
+        .tree-branches { display: flex; gap: 2rem; margin-top: 2rem; position: relative; width: 100%; justify-content: center;}
+        .tree-branches::before { content: ''; position: absolute; top: -2rem; left: 25%; right: 25%; height: 2px; background: #94a3b8; }
+        .tree-branch { display: flex; flex-direction: column; align-items: center; position: relative; width: 45%;}
+        .tree-branch::before { content: ''; position: absolute; top: -2rem; width: 2px; height: 2rem; background: #94a3b8; }
+        .tree-node { background: white; border: 2px solid #1d4ed8; padding: 1rem; border-radius: 0.5rem; width: 100%; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        .sub-nodes { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; width: 90%; }
+        .sub-node { background: #e2e8f0; padding: 0.5rem; border-radius: 0.25rem; font-size: 0.9rem; text-align: center; border-left: 4px solid #3b82f6;}
+
+        /* Ocultar barra de desplazamiento manteniendo funcionalidad */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="text-slate-800 antialiased">
+
+    <!-- PORTADA / HERO SECTION -->
+    <header class="bg-academynavy text-white py-16 relative overflow-hidden shadow-xl">
+        <div class="absolute opacity-10 top-0 left-0 w-full h-full" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <h3 class="text-academygold tracking-widest uppercase text-sm font-semibold mb-2">Universidad de América | 2026</h3>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">Metodología de la Investigación</h1>
+            <div class="w-24 h-1 bg-academyblue mx-auto mb-6"></div>
+            <h2 class="text-2xl md:text-3xl text-slate-300 font-light italic mb-8">Tema: Investigación Cuantitativa<br><span class="text-xl md:text-2xl font-normal text-white block mt-2">"De la pregunta al dato: Diseños, Muestreo y Rigor Estadístico"</span></h2>
+            <div class="inline-flex items-center bg-white/10 rounded-full px-6 py-3 border border-white/20">
+                <i class="fas fa-chalkboard-teacher text-academygold mr-3 text-xl"></i>
+                <p class="text-lg font-medium">Profesor: Ph. D. Juan Sandoval Herrera</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav class="bg-white sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto px-6">
+            <ul class="flex overflow-x-auto whitespace-nowrap py-4 gap-6 text-sm font-semibold text-slate-600">
+                <li><a href="#fundamentos" class="hover:text-academyblue transition-colors"><i class="fas fa-book-open mr-2"></i>Fundamentos y Alcances</a></li>
+                <li><a href="#disenos" class="hover:text-academyblue transition-colors"><i class="fas fa-project-diagram mr-2"></i>Diseños</a></li>
+                <li><a href="#muestreo" class="hover:text-academyblue transition-colors"><i class="fas fa-users mr-2"></i>Muestreo y Datos</a></li>
+                <li><a href="#dilema-muestra" class="hover:text-academyblue transition-colors"><i class="fas fa-balance-scale mr-2"></i>El Dilema de la Muestra</a></li>
+                <li><a href="#ejemplos" class="hover:text-academyblue transition-colors"><i class="fas fa-search mr-2"></i>Ejemplos Recientes</a></li>
+                <li><a href="#actividades" class="hover:text-academyblue transition-colors"><i class="fas fa-laptop-code mr-2"></i>Actividades</a></li>
+                <li><a href="#bibliografia" class="hover:text-academyblue transition-colors"><i class="fas fa-bookmark mr-2"></i>Bibliografía</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container mx-auto px-6 py-12">
+        
+        <!-- OBJETIVOS -->
+        <section id="objetivos" class="mb-16 scroll-mt-24">
+            <div class="glass-card p-8 rounded-xl border-t-4 border-t-academyblue shadow-sm bg-white">
+                <h3 class="text-2xl font-bold mb-4 text-academynavy"><i class="fas fa-bullseye text-academyblue mr-3"></i>Objetivos de Aprendizaje de la Sesión</h3>
+                <ul class="space-y-3 text-slate-700">
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Comprender las características centrales de la ruta cuantitativa y diferenciar los alcances de un estudio.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Clasificar y seleccionar el diseño de investigación adecuado (experimental vs. no experimental) para problemas técnicos y científicos.</span></li>
+                    <li class="flex items-start"><i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i><span>Aplicar conceptos de muestreo probabilístico y reconocer la importancia de la validez y confiabilidad en la recolección de datos.</span></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FUNDAMENTOS Y ALCANCES -->
+        <section id="fundamentos" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2">1. Fundamentos y Alcances (Sampieri & Leedy)</h2>
+            <div class="bg-white rounded-xl shadow-md p-8 mb-6 border-l-4 border-academyblue">
+                <p class="text-lg leading-relaxed text-slate-700 mb-6">
+                    La investigación cuantitativa es rigurosa, secuencial y probatoria. Cada etapa precede a la siguiente. Parte de una idea que va acotándose, derivando en objetivos, preguntas, revisión bibliográfica y el establecimiento de <strong>hipótesis</strong>. Su fin último es medir fenómenos, probar relaciones y generalizar resultados a partir de una muestra a una población.
+                </p>
+                <h4 class="font-bold text-xl mb-4 text-academynavy"><i class="fas fa-microscope text-academygold mr-2"></i> Los 4 Alcances de la Investigación Cuantitativa:</h4>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                        <h5 class="font-bold text-academyblue mb-2">Exploratorio</h5>
+                        <p class="text-sm text-slate-600">Para examinar un tema poco estudiado o novedoso. Prepara el terreno.<br><br><em>Ej: Explorar las variables termodinámicas de un biocombustible recién descubierto.</em></p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                        <h5 class="font-bold text-academyblue mb-2">Descriptivo</h5>
+                        <p class="text-sm text-slate-600">Busca especificar propiedades y características importantes de cualquier fenómeno (Leedy).<br><br><em>Ej: Describir el perfil de temperaturas en el proceso de tostión del café.</em></p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                        <h5 class="font-bold text-academyblue mb-2">Correlacional</h5>
+                        <p class="text-sm text-slate-600">Evalúa la relación o grado de asociación que existe entre dos o más conceptos o variables.<br><br><em>Ej: Relacionar la presión del reactor con el rendimiento de la biorrefinería.</em></p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 hover:shadow-md transition-shadow">
+                        <h5 class="font-bold text-academyblue mb-2">Explicativo</h5>
+                        <p class="text-sm text-slate-600">Está dirigido a responder por las causas de los eventos y fenómenos físicos o sociales.<br><br><em>Ej: Explicar por qué un diseño de intercambiador de calor es más eficiente que otro.</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DISEÑOS DE INVESTIGACIÓN -->
+        <section id="disenos" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2">2. Diseños de Investigación Cuantitativa</h2>
+            <p class="text-slate-700 mb-8 text-lg">El diseño es el plano o estrategia concebida para obtener la información que se desea con el fin de responder al planteamiento del problema (Sampieri, Cap. 7).</p>
+            
+            <div class="bg-white p-8 rounded-xl shadow-lg border border-slate-100 overflow-hidden">
+                <h3 class="text-xl font-bold text-center text-academynavy mb-2">Clasificación General de Diseños</h3>
+                <p class="text-center text-sm text-slate-500 mb-8">Basado en la manipulación de variables independientes.</p>
+                
+                <!-- Gráfico CSS -->
+                <div class="tree-diagram">
+                    <div class="tree-root shadow-lg"><i class="fas fa-sitemap mr-2"></i>Diseños Cuantitativos</div>
+                    <div class="tree-branches">
+                        <!-- Rama Experimental -->
+                        <div class="tree-branch">
+                            <div class="tree-node border-green-500">
+                                <h4 class="font-bold text-green-700 text-lg mb-1">Experimentales</h4>
+                                <p class="text-xs text-slate-600">Manipulación intencional de variables (Causa-Efecto)</p>
+                            </div>
+                            <div class="sub-nodes">
+                                <div class="sub-node border-green-400 bg-green-50">
+                                    <strong>Preexperimentos:</strong> Grado de control mínimo. Un solo grupo.
+                                </div>
+                                <div class="sub-node border-green-400 bg-green-50">
+                                    <strong>Cuasiexperimentos:</strong> Grupos intactos (no aleatorios). Manipulación de variables.
+                                </div>
+                                <div class="sub-node border-green-400 bg-green-50">
+                                    <strong>Experimentos Puros:</strong> Manipulación, grupos de control y equivalencia inicial (aleatoria).
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Rama No Experimental -->
+                        <div class="tree-branch">
+                            <div class="tree-node border-amber-500">
+                                <h4 class="font-bold text-amber-700 text-lg mb-1">No Experimentales</h4>
+                                <p class="text-xs text-slate-600">Observación en contexto natural (Ex post facto)</p>
+                            </div>
+                            <div class="sub-nodes">
+                                <div class="sub-node border-amber-400 bg-amber-50">
+                                    <strong>Transversales:</strong> Recolección de datos en un único momento (foto del instante).
+                                </div>
+                                <div class="sub-node border-amber-400 bg-amber-50">
+                                    <strong>Longitudinales:</strong> Analizan cambios a través del tiempo (tendencias, cohortes, paneles).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MUESTREO Y DATOS -->
+        <section id="muestreo" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2">3. Selección de la Muestra y Análisis (Sampieri, Cap. 8)</h2>
+            
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Panel Muestreo -->
+                <div class="bg-white rounded-xl shadow-md p-8 border-t-4 border-t-academyblue">
+                    <h3 class="text-xl font-bold mb-4 text-academynavy"><i class="fas fa-users-cog text-academyblue mr-2"></i>Tipos de Muestreo</h3>
+                    <p class="text-slate-700 mb-4 text-sm">La muestra es un subgrupo de la población de interés sobre el cual se recolectarán datos, y que tiene que ser representativo de ésta.</p>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-slate-50 p-4 rounded border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-700">Muestreo Probabilístico</h4>
+                            <p class="text-sm text-slate-600">Todos los elementos tienen la misma posibilidad de ser escogidos. Ideal para estadística inferencial.</p>
+                            <ul class="list-disc list-inside text-xs text-slate-500 mt-2">
+                                <li>Aleatorio Simple</li>
+                                <li>Estratificado</li>
+                                <li>Por Racimos (Clusters)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded border-l-4 border-gray-500">
+                            <h4 class="font-bold text-gray-700">Muestreo No Probabilístico</h4>
+                            <p class="text-sm text-slate-600">La elección no depende de la probabilidad, sino de causas relacionadas con las características de la investigación o el investigador.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Matemático -->
+                <div class="bg-academynavy rounded-xl shadow-md p-8 text-white">
+                    <h3 class="text-xl font-bold mb-4 text-academygold"><i class="fas fa-square-root-variable mr-2"></i>Rigor Estadístico: Muestra Estratificada</h3>
+                    <p class="text-sm text-slate-300 mb-6">
+                        En ingeniería y ciencias, a menudo requerimos afinar la representatividad. Como expone Sampieri, el tamaño de la muestra (\(n\)) y la varianza pueden minimizarse calculando submuestras proporcionales a la desviación estándar de cada estrato.
+                    </p>
+                    
+                    <div class="bg-white/10 p-4 rounded-lg mb-4 text-center">
+                        <p class="text-xs text-slate-300 mb-2">Fracción constante para tamaño de muestra por estrato:</p>
+                        <!-- MathJax Ecuación -->
+                        <div class="text-xl overflow-x-auto">
+                            $$ ksh = \frac{nh}{Nh} $$
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-400">
+                        Donde: <br>
+                        \(nh\) = Muestra del estrato.<br>
+                        \(Nh\) = Población de cada estrato.<br>
+                        \(ksh\) = Fracción constante (ej. si pobl. total es 1176 y muestra requerida es 298, \(ksh = 298/1176 = 0.2534\)). Multiplicamos el total del estrato por esta fracción para hallar su representatividad.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-blue-50 border border-blue-200 rounded-xl p-6 flex flex-col md:flex-row items-center gap-6">
+                <div class="text-4xl text-blue-500"><i class="fas fa-chart-line"></i></div>
+                <div>
+                    <h3 class="text-lg font-bold text-blue-900 mb-2">Recolección y Estadística (Leedy, Cap 6 & 8)</h3>
+                    <p class="text-sm text-blue-800">
+                        El instrumento de medición debe cumplir 3 requisitos: <strong>Confiabilidad</strong> (resultados consistentes), <strong>Validez</strong> (mide realmente la variable) y <strong>Objetividad</strong>.<br>
+                        Los datos numéricos se analizan mediante <strong>Estadística Descriptiva</strong> (media, varianza, desviación estándar) para resumir los datos, y <strong>Estadística Inferencial</strong> (ANOVA, pruebas T, Regresión) para probar hipótesis y estimar parámetros poblacionales.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- NUEVA SECCIÓN: EL DILEMA DE LA MUESTRA -->
+        <section id="dilema-muestra" class="mb-16 scroll-mt-24">
+             <h2 class="text-3xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2">4. El Dilema de la Muestra: ¿Generalizar o Medir Localmente?</h2>
+             <div class="bg-white rounded-xl shadow-md p-8 border-l-4 border-academygold">
+                <p class="text-slate-700 mb-6 text-lg">
+                    La elección del muestreo <strong>no depende del método, sino del Planteamiento del Problema</strong>. El "Test Rápido" para definir tu camino estadístico es preguntarte: <em>"Si mis resultados dan 'X', ¿quiero afirmar que 'X' es cierto para toda la industria/país, o solo para este grupo/planta?"</em>
+                </p>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Arquitectura -->
+                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-building text-academynavy text-xl mr-3"></i>
+                            <h4 class="font-bold text-academynavy">Arquitectura</h4>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded">Estadística Inferencial</span>
+                            <p class="text-sm text-slate-600 mt-2">Tomar muestra aleatoria de 30 edificios para generalizar una nueva norma de diseño de iluminación natural aplicable a todos los corporativos.</p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-200">
+                            <span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded">Estudio Específico</span>
+                            <p class="text-sm text-slate-600 mt-2">Medir fallas estructurales solo en los muros de <em>un</em> edificio patrimonial específico para su restauración. No se generaliza.</p>
+                        </div>
+                    </div>
+
+                    <!-- Economía -->
+                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-chart-pie text-academynavy text-xl mr-3"></i>
+                            <h4 class="font-bold text-academynavy">Economía</h4>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded">Estadística Inferencial</span>
+                            <p class="text-sm text-slate-600 mt-2">Muestra estratificada de hogares para inferir (generalizar) cómo afecta la subida de tasas de interés al consumo de todo el país.</p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-200">
+                            <span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded">Estudio Específico</span>
+                            <p class="text-sm text-slate-600 mt-2">Analizar la viabilidad financiera de los 50 socios de <em>una</em> cooperativa cafetera. No se generaliza a otras cooperativas.</p>
+                        </div>
+                    </div>
+
+                    <!-- Ingeniería -->
+                    <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+                        <div class="flex items-center mb-3">
+                            <i class="fas fa-cogs text-academynavy text-xl mr-3"></i>
+                            <h4 class="font-bold text-academynavy">Ingeniería</h4>
+                        </div>
+                        <div class="mb-3">
+                            <span class="text-xs font-bold text-blue-600 bg-blue-100 px-2 py-1 rounded">Estadística Inferencial</span>
+                            <p class="text-sm text-slate-600 mt-2">Muestra aleatoria de cultivos para probar paramétricamente (ANOVA) que una cepa nueva captura más CO2 que el estándar comercial.</p>
+                        </div>
+                        <div class="pt-3 border-t border-slate-200">
+                            <span class="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded">Estudio Específico</span>
+                            <p class="text-sm text-slate-600 mt-2">Medir presión y flujo en el intercambiador de calor de tubos de <em>este</em> laboratorio específico para repararlo.</p>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- EJEMPLOS RECIENTES -->
+        <section id="ejemplos" class="mb-16 scroll-mt-24">
+             <h2 class="text-3xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2">5. Ejemplos Recientes de Investigaciones</h2>
+             <p class="text-slate-700 mb-6 text-lg">Revisión de *papers* para analizar la declaración del diseño metodológico en la práctica científica.</p>
+
+             <div class="grid md:grid-cols-2 gap-6">
+                <!-- Ejemplo Experimental -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500 hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-flask text-green-500 text-xl mr-3"></i>
+                        <h3 class="font-bold text-lg text-academynavy">Diseño Experimental</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800 mb-2">"Effects of a low-carbon energy transition on local air quality and human health: A quasi-experimental study"</p>
+                    <p class="text-xs text-slate-500 font-mono bg-slate-100 p-2 rounded mb-4">(Chen, J., et al., 2024)</p>
+                    <p class="text-sm text-slate-600"><em>Nota para el análisis:</em> Observar cómo se justifica el "cuasi-experimento" al no poder aleatorizar las regiones que implementaron la transición energética, pero sí midiendo el antes y el después con un grupo control emparejado.</p>
+                </div>
+
+                <!-- Ejemplo No Experimental -->
+                 <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-amber-500 hover:shadow-md transition-shadow">
+                    <div class="flex items-center mb-3">
+                        <i class="fas fa-chart-bar text-amber-500 text-xl mr-3"></i>
+                        <h3 class="font-bold text-lg text-academynavy">Diseño No Experimental (Transversal)</h3>
+                    </div>
+                    <p class="text-sm font-semibold text-slate-800 mb-2">"A cross-sectional analysis of microplastic contamination in urban water supply systems across Latin America"</p>
+                    <p class="text-xs text-slate-500 font-mono bg-slate-100 p-2 rounded mb-4">(Silva, M. R., & Gómez, A. L., 2023)</p>
+                    <p class="text-sm text-slate-600"><em>Nota para el análisis:</em> Revisar la sección de métodos para ver cómo se recolectaron los datos en un momento único en el tiempo a través de múltiples ciudades, buscando correlaciones sin manipular los sistemas de agua.</p>
+                </div>
+             </div>
+        </section>
+
+        <!-- SECCIÓN DE ACTIVIDADES (INTERACTIVA) -->
+        <section id="actividades" class="mb-16 scroll-mt-24">
+            <h2 class="text-3xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2">6. Actividad en Clase: Evaluando Escenarios</h2>
+            <p class="text-slate-700 mb-6 text-lg">Responda a los siguientes casos técnicos e identifique el diseño o tipo de muestreo correcto según lo visto en clase.</p>
+            
+            <div class="glass-card p-6 rounded-xl relative">
+                <!-- Contenedor del Quiz dinámico -->
+                <div id="quiz-container">
+                    <div class="mb-6">
+                        <span class="bg-academyblue text-white text-xs font-bold px-3 py-1 rounded-full mb-3 inline-block" id="q-counter">Pregunta 1 de 3</span>
+                        <h3 class="text-xl font-semibold text-academynavy mb-4" id="q-text">Cargando caso...</h3>
+                    </div>
+                    <div class="space-y-3" id="q-options">
+                        <!-- Opciones generadas por JS -->
+                    </div>
+                    
+                    <div id="feedback" class="mt-6 p-4 rounded-lg hidden">
+                        <h4 class="font-bold mb-1" id="feedback-title"></h4>
+                        <p class="text-sm" id="feedback-text"></p>
+                    </div>
+
+                    <div class="mt-6 flex justify-end">
+                        <button id="next-btn" class="bg-academynavy hover:bg-academyblue text-white font-bold py-2 px-6 rounded transition-colors hidden">Siguiente Caso <i class="fas fa-arrow-right ml-2"></i></button>
+                    </div>
+                </div>
+
+                <!-- Pantalla de resultados -->
+                <div id="results-container" class="hidden text-center py-8">
+                    <i class="fas fa-award text-6xl text-academygold mb-4"></i>
+                    <h3 class="text-2xl font-bold text-academynavy mb-2">¡Actividad Completada!</h3>
+                    <p class="text-slate-600 mb-6">Has revisado los conceptos clave de los diseños y muestreo cuantitativo.</p>
+                    <button onclick="resetQuiz()" class="bg-academyblue hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors"><i class="fas fa-redo mr-2"></i>Reiniciar Actividad</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- BIBLIOGRAFÍA -->
+        <section id="bibliografia" class="mb-8 scroll-mt-24">
+            <h2 class="text-2xl font-bold mb-6 text-academynavy border-b-2 border-slate-200 pb-2"><i class="fas fa-book mr-3"></i>Bibliografía y Recursos</h2>
+            <div class="bg-white rounded-xl shadow p-6">
+                <ul class="space-y-4 text-sm text-slate-700">
+                    <li class="pl-4 border-l-2 border-academygold">
+                        <strong>Hernández-Sampieri, R., & Mendoza Torres, C. P. (2018).</strong> <em>Metodología de la investigación: las rutas cuantitativa, cualitativa y mixta</em>. McGraw-Hill Interamericana. (Capítulos 7, 8, 9 y 10).
+                    </li>
+                    <li class="pl-4 border-l-2 border-academygold">
+                        <strong>Leedy, P. D., & Ormrod, J. E. (2015).</strong> <em>Practical research: Planning and design</em> (11th ed., Global Edition). Pearson. (Capítulos 6, 7 y 8).
+                    </li>
+                </ul>
+                
+                <h4 class="font-bold text-slate-800 mt-6 mb-3">Recursos web adicionales para la clase:</h4>
+                <div class="flex flex-wrap gap-3">
+                    <a href="https://scholar.google.es/" target="_blank" class="inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 text-sm font-medium transition-colors"><i class="fab fa-google mr-2 text-blue-500"></i>Google Scholar</a>
+                    <a href="https://www.scopus.com/home.uri" target="_blank" class="inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 text-sm font-medium transition-colors"><i class="fas fa-database mr-2 text-orange-500"></i>Scopus</a>
+                    <a href="https://www.mathjax.org/" target="_blank" class="inline-flex items-center px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded text-slate-700 text-sm font-medium transition-colors"><i class="fas fa-square-root-variable mr-2 text-green-600"></i>Doc. MathJax</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-academynavy text-slate-400 py-8 border-t-4 border-academygold text-center">
+        <div class="container mx-auto px-6">
+            <p>&copy; 2026 Universidad de América. Curso de Metodología de la Investigación.</p>
+            <p class="text-sm mt-2">Material diseñado para fines académicos y formativos por el Dr. Juan Sandoval Herrera.</p>
+        </div>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT DE LA ACTIVIDAD -->
+    <script>
+        // Base de datos de preguntas para la actividad
+        const quizData = [
+            {
+                question: "Para medir la eficiencia termodinámica de un nuevo intercambiador de calor, usted decide instalarlo en un laboratorio aislado, someterlo a diferentes flujos preestablecidos y comparar los resultados de transferencia de calor con un modelo tradicional. ¿Qué diseño está utilizando?",
+                options: [
+                    { text: "Diseño no experimental transversal", correct: false },
+                    { text: "Diseño experimental puro", correct: true },
+                    { text: "Diseño correlacional exploratorio", correct: false }
+                ],
+                explanation: "¡Correcto! Es un diseño Experimental Puro porque usted manipula intencionalmente la variable independiente (el flujo) en un entorno de alto control (laboratorio) y compara contra un control (modelo tradicional) para establecer relaciones causa-efecto."
+            },
+            {
+                question: "Se le asigna analizar la calidad del agua en una planta de tratamiento. Usted toma muestras de agua de los 5 tanques disponibles, seleccionando muestras de forma aleatoria dentro de cada tanque asegurando que la proporción de muestras corresponda al volumen de cada tanque. ¿Qué método usó?",
+                options: [
+                    { text: "Muestreo Probabilístico Estratificado", correct: true },
+                    { text: "Muestreo No Probabilístico por Conveniencia", correct: false },
+                    { text: "Muestreo Probabilístico Aleatorio Simple", correct: false }
+                ],
+                explanation: "¡Excelente! Utilizó un Muestreo Probabilístico Estratificado. Los 'estratos' son los tanques, y la selección aleatoria proporcional al volumen garantiza la representatividad matemática (aplicando la fórmula ksh = nh/Nh)."
+            },
+            {
+                question: "Usted revisa una base de datos histórica (de los últimos 10 años) de una planta petroquímica para observar cómo han cambiado las emisiones de CO2 a lo largo de la década sin intervenir en la planta. ¿Qué diseño de investigación es?",
+                options: [
+                    { text: "Experimental Cuasi-experimental", correct: false },
+                    { text: "No experimental Transversal", correct: false },
+                    { text: "No experimental Longitudinal", correct: true }
+                ],
+                explanation: "¡Muy bien! Es un diseño No experimental (porque observa datos 'ex post facto' sin manipular la planta) y es Longitudinal (porque analiza la evolución de la variable a través del tiempo, en este caso, 10 años)."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let answered = false;
+
+        const qCounter = document.getElementById('q-counter');
+        const qText = document.getElementById('q-text');
+        const qOptions = document.getElementById('q-options');
+        const feedback = document.getElementById('feedback');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsContainer = document.getElementById('results-container');
+
+        function loadQuestion() {
+            answered = false;
+            const q = quizData[currentQuestion];
+            qCounter.innerText = `Caso ${currentQuestion + 1} de ${quizData.length}`;
+            qText.innerText = q.question;
+            qOptions.innerHTML = '';
+            feedback.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+
+            q.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left p-4 border border-slate-200 rounded-lg bg-white hover:bg-slate-50 transition-colors font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-academyblue";
+                btn.innerHTML = `<span class="inline-block w-6 font-bold text-academyblue">${String.fromCharCode(65 + index)}.</span> ${opt.text}`;
+                btn.onclick = () => checkAnswer(index, btn);
+                qOptions.appendChild(btn);
+            });
+        }
+
+        function checkAnswer(selectedIndex, btnElement) {
+            if (answered) return;
+            answered = true;
+
+            const q = quizData[currentQuestion];
+            const isCorrect = q.options[selectedIndex].correct;
+
+            // Deshabilitar todos los botones
+            Array.from(qOptions.children).forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-50', 'focus:ring-2');
+                btn.classList.add('opacity-70', 'cursor-not-allowed');
+            });
+
+            feedback.classList.remove('hidden');
+
+            if (isCorrect) {
+                btnElement.classList.remove('border-slate-200', 'bg-white');
+                btnElement.classList.add('border-green-500', 'bg-green-50', 'text-green-800', 'opacity-100');
+                
+                feedback.classList.add('bg-green-100', 'border', 'border-green-300', 'text-green-800');
+                feedback.classList.remove('bg-red-100', 'border-red-300', 'text-red-800');
+                feedbackTitle.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Respuesta Correcta';
+            } else {
+                btnElement.classList.remove('border-slate-200', 'bg-white');
+                btnElement.classList.add('border-red-500', 'bg-red-50', 'text-red-800', 'opacity-100');
+                
+                // Resaltar la correcta
+                const correctIndex = q.options.findIndex(o => o.correct);
+                qOptions.children[correctIndex].classList.remove('border-slate-200', 'bg-white');
+                qOptions.children[correctIndex].classList.add('border-green-500', 'bg-green-50', 'opacity-100');
+
+                feedback.classList.add('bg-red-100', 'border', 'border-red-300', 'text-red-800');
+                feedback.classList.remove('bg-green-100', 'border-green-300', 'text-green-800');
+                feedbackTitle.innerHTML = '<i class="fas fa-times-circle mr-2"></i>Respuesta Incorrecta';
+            }
+
+            feedbackText.innerText = q.explanation;
+            
+            // Mostrar botón siguiente o finalizar
+            if (currentQuestion < quizData.length - 1) {
+                nextBtn.innerText = "Siguiente Caso →";
+                nextBtn.classList.remove('hidden');
+            } else {
+                nextBtn.innerText = "Ver Resultados →";
+                nextBtn.classList.remove('hidden');
+            }
+        }
+
+        nextBtn.onclick = () => {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                quizContainer.classList.add('hidden');
+                resultsContainer.classList.remove('hidden');
+            }
+        };
+
+        function resetQuiz() {
+            currentQuestion = 0;
+            quizContainer.classList.remove('hidden');
+            resultsContainer.classList.add('hidden');
+            loadQuestion();
+        }
+
+        // Iniciar Quiz al cargar
+        window.onload = () => {
+            loadQuestion();
+        };
+
+        // Smooth scroll para los links de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
